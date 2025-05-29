@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scusa, sono Out of Office</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: white !important;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Arial Black', Arial, sans-serif;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    #bg1 {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url('https://cdn.instant.so/sites/RCrMQLHZv6hHlNKb/assets/JYb25Z8uHQ92UvWz/dfgfdgfd.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1;
+    }
+
+    #bg2 {
+      background-image: none;
+      opacity: 0;
+      z-index: 2;
+    }
+
+    #bg1, #bg2 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .sequence-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      z-index: 1001;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .sequence-text.show {
+      opacity: 1;
+    }
+
+    .main-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1000;
+      white-space: normal;
+      animation: insanePulse 0.8s ease-in-out infinite;
+      display: none;
+      max-width: 90vw;
+      line-height: 1.4;
+    }
+
+    .main-text.calm {
+      animation: none;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    @keyframes insanePulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      25% { transform: translate(-50%, -50%) scale(1.15); }
+      50% { transform: translate(-50%, -50%) scale(1.3); }
+      75% { transform: translate(-50%, -50%) scale(1.15); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .clone-text {
+      position: absolute;
+      font-weight: bold;
+      white-space: nowrap;
+      pointer-events: none;
+      text-align: center;
+      transform-origin: center center;
+      transition: opacity 0.2s ease-out;
+      opacity: 0;
+      z-index: 9998;
+    }
+
+    .scream-text {
+      position: fixed;
+      white-space: nowrap;
+      font-weight: bold;
+      color: black !important;
+      opacity: 0;
+      transform: translateX(-100%);
+      transition: transform 0.5s ease-out, opacity 0.2s;
+      z-index: 9999;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+    }
+
+    .scream-text.show {
+      opacity: 1;
+      transform: translateX(100vw);
+    }
+
+    .glitch {
+      animation: insaneGlitch 0.2s infinite;
+    }
+
+    @keyframes insaneGlitch {
+      0% { transform: translate(0); }
+      10% { transform: translate(-10px, 10px); }
+      20% { transform: translate(-10px, -10px); }
+      30% { transform: translate(10px, 10px); }
+      40% { transform: translate(10px, -10px); }
+      50% { transform: translate(-8px, 8px); }
+      60% { transform: translate(8px, -8px); }
+      70% { transform: translate(-5px, 5px); }
+      80% { transform: translate(5px, -5px); }
+      90% { transform: translate(-3px, 3px); }
+      100% { transform: translate(0); }
+    }
+
+    .glitch-text {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch-text::before {
+      left: 4px;
+      text-shadow: -4px 0 red;
+      background: rgba(255, 0, 0, 0.2);
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim-1 0.5s infinite linear alternate-reverse;
+    }
+
+    .glitch-text::after {
+      left: -4px;
+      text-shadow: -4px 0 blue;
+      background: rgba(0, 0, 255, 0.2);
+      clip: rect(88px, 450px, 100px, 0);
+      animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+      0% { clip: rect(38px, 9999px, 52px, 0); }
+      10% { clip: rect(104px, 9999px, 47px, 0); }
+      20% { clip: rect(18px, 9999px, 83px, 0); }
+      30% { clip: rect(83px, 9999px, 57px, 0); }
+      40% { clip: rect(62px, 9999px, 20px, 0); }
+      50% { clip: rect(40px, 9999px, 75px, 0); }
+      60% { clip: rect(12px, 9999px, 60px, 0); }
+      70% { clip: rect(88px, 9999px, 33px, 0); }
+      80% { clip: rect(55px, 9999px, 90px, 0); }
+      90% { clip: rect(70px, 9999px, 10px, 0); }
+      100% { clip: rect(25px, 9999px, 65px, 0); }
+    }
+
+    @keyframes glitch-anim-2 {
+      0% { clip: rect(10px, 9999px, 20px, 0); }
+      10% { clip: rect(60px, 9999px, 70px, 0); }
+      20% { clip: rect(30px, 9999px, 40px, 0); }
+      30% { clip: rect(90px, 9999px, 100px, 0); }
+      40% { clip: rect(50px, 9999px, 60px, 0); }
+      50% { clip: rect(20px, 9999px, 30px, 0); }
+      60% { clip: rect(80px, 9999px, 90px, 0); }
+      70% { clip: rect(40px, 9999px, 50px, 0); }
+      80% { clip: rect(70px, 9999px, 80px, 0); }
+      90% { clip: rect(0px, 9999px, 10px, 0); }
+      100% { clip: rect(100px, 9999px, 110px, 0); }
+    }
+
+    .bounce-in { animation: hyperBounce 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+    .slide-in { animation: crazySlide 0.15s ease-out forwards; }
+    .zoom-in { animation: megaZoom 0.08s ease-out forwards; }
+    .spiral-in { animation: madSpiral 0.2s ease-out forwards; }
+    .shake-in { animation: violentShake 0.12s ease-out forwards; }
+
+    @keyframes hyperBounce {
+      0% { opacity: 0; transform: scale(0.1) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+      70% { transform: scale(0.7) rotate(270deg); }
+      100% { opacity: 1; transform: scale(1) rotate(360deg); }
+    }
+
+    @keyframes crazySlide {
+      0% { opacity: 0; transform: translateX(-400px) rotate(-180deg) scale(0.3); }
+      100% { opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+    }
+
+    @keyframes megaZoom {
+      0% { opacity: 0; transform: scale(0) rotate(1080deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes madSpiral {
+      0% { opacity: 0; transform: rotate(0deg) scale(0) translate(-200px, -200px); }
+      25% { opacity: 0.5; transform: rotate(180deg) scale(0.5) translate(-100px, -100px); }
+      50% { opacity: 0.7; transform: rotate(360deg) scale(0.8) translate(-50px, -50px); }
+      75% { opacity: 0.9; transform: rotate(540deg) scale(1.2) translate(-20px, -20px); }
+      100% { opacity: 1; transform: rotate(720deg) scale(1) translate(0, 0); }
+    }
+
+    @keyframes violentShake {
+      0% { opacity: 0; transform: translate(0, 0); }
+      10% { opacity: 0.5; transform: translate(-30px, 25px); }
+      20% { opacity: 0.7; transform: translate(28px, -22px); }
+      30% { opacity: 0.8; transform: translate(-25px, -28px); }
+      40% { opacity: 0.9; transform: translate(22px, 30px); }
+      50% { opacity: 1; transform: translate(-18px, -25px); }
+      60% { opacity: 1; transform: translate(20px, 18px); }
+      70% { opacity: 1; transform: translate(-15px, -20px); }
+      80% { opacity: 1; transform: translate(16px, 15px); }
+      90% { opacity: 1; transform: translate(-8px, -10px); }
+      100% { opacity: 1; transform: translate(0, 0); }
+    }
+
+    @keyframes fly-diagonal {
+      from {
+        transform: translate(var(--start-x), var(--start-y)) rotate(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: translate(var(--end-x), var(--end-y)) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .scream-text.show {
+      animation: fly-diagonal 1.5s forwards ease-in-out;
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .out-of-office {
+      color: #be29ec !important;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: #be29ec;
+      text-underline-offset: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="bg-container">
+    <div id="bg1" class="bg-layer"></div>
+    <div id="bg2" class="bg-layer"></div>
+  </div>
+
+  <div class="sequence-text" id="sequenceText"></div>
+  <div class="main-text" id="mainText"></div>
+
+  <script>
+    const bg1 = document.getElementById('bg1');
+    const bg2 = document.getElementById('bg2');
+    const mainText = document.getElementById('mainText');
+    const sequenceText = document.getElementById('sequenceText');
+
+    const siteOpenTime = (() => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    })();
+
+    const backgroundImages = [
+      'https://media1.tenor.com/m/i3uvgLDN1GgAAAAC/office-space.gif',
+      'https://i.gifer.com/P1bx.gif', 
+      'https://i.imgur.com/PxROaiL.gif',
+      'https://us1.discourse-cdn.com/flex016/uploads/headphones/original/2X/2/226c1b639242e55c2dcf7e0d2bd291b24d98d044.gif',
+      'https://img.buzzfeed.com/buzzfeed-static/static/2014-08/12/17/enhanced/webdr09/anigif_original-grid-image-5673-1407880135-25.gif',
+      'https://64.media.tumblr.com/2cf06107c3a6188e22b68692407977fc/cf3602ee68019f7f-76/s540x810/44437e3a53304af7f75f96747aced2967165ad02.gif',
+      'https://media1.tenor.com/m/JIS_KDKKsgYAAAAd/guaton-computadora.gif',
+      'https://media1.tenor.com/m/YUT6OekjwxQAAAAd/shoot-computer.gif',
+      'https://www.mimeo.com/wp-content/uploads/2022/03/Office-Spaces-Scene-is-Iconic-for-Destroying-the-Office-Printer-1.gif'
+    ];
+
+    let cloneCount = 0;
+    const maxClones = 15;
+    let cloneGenerationInterval;
+    let currentBackgroundIndex = 0;
+    let madnessStarted = false;
+
+    function startSequence() {
+      sequenceText.innerHTML = "Grazie per essere stato<br>così solerte da contattarmi!";
+      sequenceText.classList.add('show');
+
+      setTimeout(() => {
+        sequenceText.classList.remove('show');
+        setTimeout(() => {
+          sequenceText.innerHTML = "purtroppo<br>al momento sono<br><span class='out-of-office'>Out of Office</span>";
+          sequenceText.classList.add('show');
+
+          setTimeout(() => {
+            sequenceText.classList.remove('show');
+            setTimeout(() => {
+              sequenceText.style.display = 'none';
+              setMainTextWithTime();
+              mainText.style.display = 'block';
+              mainText.classList.add('calm'); 
+
+              setTimeout(startMadness, 2000);
+            }, 200);
+          }, 1500);
+        }, 200);
+      }, 1500);
+    }
+
+    function startMadness() {
+      madnessStarted = true;
+      mainText.classList.remove('calm');
+      startContinuousCloneGeneration();
+      setInterval(createScreamText, Math.random() * 300 + 500);
+      startThirdAct();
+    }
+
+    function fadeToBackground(newImageUrl) {
+      bg2.style.backgroundImage = `url('${newImageUrl}')`;
+      bg2.style.opacity = 1;
+      setTimeout(() => {
+        bg1.style.backgroundImage = `url('${newImageUrl}')`;
+        bg2.style.opacity = 0;
+      }, 200);
+    }
+
+    function startThirdAct() {
+      setInterval(() => {
+        currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundImages.length;
+        fadeToBackground(backgroundImages[currentBackgroundIndex]);
+      }, 1500); 
+    }
+
+    function getRandomPosition(elementWidth, elementHeight) {
+      const padding = 20;
+      const x = padding + Math.random() * (window.innerWidth - elementWidth - 2 * padding);
+      const y = padding + Math.random() * (window.innerHeight - elementHeight - 2 * padding);
+      return { x, y };
+    }
+
+    function getRandomSize() {
+      return Math.random() * 2 + 0.3;
+    }
+
+    function getRandomAnimation() {
+      const animations = ['bounce-in', 'slide-in', 'zoom-in', 'spiral-in', 'shake-in'];
+      return animations[Math.floor(Math.random() * animations.length)];
+    }
+
+    const zalgo_up = [
+      '\u030d', '\u030e', '\u0304', '\u0305', '\u033f', '\u0311', '\u0306', 
+      '\u0310', '\u0352', '\u0357', '\u0351', '\u0307', '\u0308', '\u030a', 
+      '\u030c', '\u030b', '\u030f', '\u0312', '\u0313', '\u0314', '\u033d', 
+      '\u0309', '\u0363', '\u0364', '\u0365', '\u0366', '\u0368', '\u0369', 
+      '\u036a', '\u036b', '\u036c', '\u036d', '\u036e', '\u036f', '\u033e', 
+      '\u035b', '\u0346', '\u031a'
+    ];
+    const zalgo_down = [
+      '\u0316', '\u0317', '\u0318', '\u0319', '\u031b', '\u0321', '\u0322', 
+      '\u0327', '\u0328', '\u0334', '\u0335', '\u0336', '\u0347', '\u0353', 
+      '\u0354', '\u0355', '\u0356', '\u0359', '\u035a', '\u0323', '\u0324', 
+      '\u0325', '\u0326', '\u0329', '\u032a', '\u032b', '\u032c', '\u032d', 
+      '\u032e', '\u032f', '\u0330', '\u0331', '\u0337', '\u0338', '\u0339', 
+      '\u033a', '\u033b', '\u033c', '\u034d', '\u034e', '\u034f', '\u035c', 
+      '\u035d', '\u035e', '\u035f', '\u0360', '\u0362', '\u0342', '\u0343', 
+      '\u0344', '\u034a', '\u034b', '\u034c', '\u0300', '\u0301', '\u0302', 
+      '\u0303', '\u030b', '\u0306', '\u030f'
+    ];
+    const zalgo_mid = [
+      '\u0315', '\u031c', '\u031d', '\u031e', '\u031f', '\u0320', '\u0333', 
+      '\u0336', '\u0337', '\u0341', '\u0345', '\u0350', '\u0358', '\u0326', 
+      '\u031d'
+    ];
+
+    function applyZalgo(text) {
+      let result = '';
+      for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        if (char === '<' || char === '&') {
+            let endIndex = text.indexOf('>', i);
+            if (endIndex === -1) endIndex = text.indexOf(';', i);
+            if (endIndex !== -1) {
+                result += text.substring(i, endIndex + 1);
+                i = endIndex;
+                continue;
+            }
+        }
+        result += char;
+        if (Math.random() < 0.5) {
+          result += zalgo_up[Math.floor(Math.random() * zalgo_up.length)];
+        }
+        if (Math.random() < 0.5) {
+          result += zalgo_down[Math.floor(Math.random() * zalgo_down.length)];
+        }
+        if (Math.random() < 0.3) {
+          result += zalgo_mid[Math.floor(Math.random() * zalgo_mid.length)];
+        }
+      }
+      return result;
+    }
+
+    function reverseText(text) {
+        const segments = text.split(/(<[^>]+>)/g).filter(s => s.length > 0);
+        const reversedSegments = segments.map(segment => {
+            if (segment.startsWith('<') && segment.endsWith('>')) {
+                return segment;
+            } else {
+                return segment.split('').reverse().join('');
+            }
+        }).reverse();
+        return reversedSegments.join('');
+    }
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+        }
+
+
+
+    function createClone() {
+      if (!madnessStarted) return; 
+      
+      if (cloneCount >= maxClones) {
+        const oldestClone = document.querySelector('.clone-text');
+        if (oldestClone) {
+          oldestClone.style.opacity = 0;
+          setTimeout(() => {
+            if (oldestClone.parentNode) {
+              oldestClone.parentNode.removeChild(oldestClone);
+              cloneCount--;
+            }
+          }, 1200);
+        }
+      }
+
+      const clone = document.createElement('div');
+      clone.className = 'clone-text';
+    
+
+      if (Math.random() < 0.8) {
+        clone.style.color = 'white';
+        } else {
+        clone.style.color = getRandomColor();
+      }
+      let cloneContent = mainText.innerHTML;
+      const effectChoice = Math.random();
+
+      if (effectChoice < 0.3) {
+        cloneContent = applyZalgo(cloneContent);
+      } else if (effectChoice < 0.6) {
+        cloneContent = reverseText(cloneContent);
+      }
+
+      clone.innerHTML = cloneContent;
+
+      const size = getRandomSize();
+      const animation = getRandomAnimation();
+      const rotation = Math.random() * 360;
+
+      clone.style.fontSize = size + 'rem';
+      clone.style.transform = `rotate(${rotation}deg)`;
+      clone.classList.add(animation);
+
+      document.body.appendChild(clone);
+
+      const position = getRandomPosition(clone.offsetWidth, clone.offsetHeight);
+      clone.style.left = position.x + 'px';
+      clone.style.top = position.y + 'px';
+
+      requestAnimationFrame(() => {
+        clone.style.opacity = 1;
+      });
+
+      if (Math.random() < 0.2) {
+        clone.classList.add('glitch-text');
+        clone.setAttribute('data-text', clone.textContent);
+      }
+
+      cloneCount++;
+
+      const disappearanceDelay = Math.random() * 1000 + 500;
+      setTimeout(() => {
+        clone.style.opacity = 0;
+        setTimeout(() => {
+          if (clone.parentNode) {
+            clone.parentNode.removeChild(clone);
+            cloneCount--;
+          }
+        }, 1200);
+      }, disappearanceDelay);
+    }
+
+    function startContinuousCloneGeneration() {
+      if (cloneGenerationInterval) {
+        clearInterval(cloneGenerationInterval);
+      }
+      cloneGenerationInterval = setInterval(() => {
+        const burstSize = Math.floor(Math.random() * 6) + 1;
+        for (let i = 0; i < burstSize; i++) {
+          createClone();
+        }
+      }, 100);
+    }
+
+    function createScreamText() {
+      if (!madnessStarted) return;
+
+        const scream = document.createElement('div');
+        scream.textContent = "AHHHHHHHHHHHHH";
+        scream.classList.add('scream-text');
+
+        const fontSize = Math.random() * 15 + 2;
+        scream.style.fontSize = `${fontSize}rem`;
+
+        const edges = ['top', 'bottom', 'left', 'right'];
+        const startEdge = edges[Math.floor(Math.random() * edges.length)];
+
+        let startX = 0, startY = 0, endX = 0, endY = 0;
+
+        switch (startEdge) {
+            case 'top':
+            startX = Math.random() * window.innerWidth;
+            startY = -fontSize * 16;
+            endX = startX + (Math.random() * 600 - 300);
+            endY = window.innerHeight + fontSize * 16;
+            break;
+            case 'bottom':
+            startX = Math.random() * window.innerWidth;
+            startY = window.innerHeight + fontSize * 16;
+            endX = startX + (Math.random() * 600 - 300);
+            endY = -fontSize * 16;
+            break;
+            case 'left':
+            startX = -fontSize * 16;
+            startY = Math.random() * window.innerHeight;
+            endX = window.innerWidth + fontSize * 16;
+            endY = startY + (Math.random() * 600 - 300);
+            break;
+            case 'right':
+            startX = window.innerWidth + fontSize * 16;
+            startY = Math.random() * window.innerHeight;
+            endX = -fontSize * 16;
+            endY = startY + (Math.random() * 600 - 300);
+            break;
+        }
+
+        scream.style.setProperty('--start-x', `${startX}px`);
+        scream.style.setProperty('--start-y', `${startY}px`);
+        scream.style.setProperty('--end-x', `${endX}px`);
+        scream.style.setProperty('--end-y', `${endY}px`);
+
+        document.body.appendChild(scream);
+
+        setTimeout(() => {
+            scream.remove();
+        }, 1500);
+    }
+
+    function setMainTextWithTime() {
+      mainText.innerHTML = `
+        E MI HAI ROTTO I COGLIONI<br>
+        NON MI CONTATTARE OGGI PERCHE' DAVVERO IMPAZZISCO<br>
+        POI SI RIDE EH... E LA MAIL, E LA CALL, E IL PROGETTO, BASTA.<br>
+        DAVVERO EH, SE NO POI, UNO SCUCCA, GLI PARTE LA BROCCA.<br>
+        HAI VISTO UN GIORNO DI ORDINARIA FOLLIA? <br>
+        VUOI FARLO DIVENTARE UN DOCUMENTARIO?!<br>
+        LA CAPOCCIA FINISCE PER IMPAZZIRE EH.<br>
+        SONO LE ${siteOpenTime} NON HAI ALTRO DA FARE?
+      `;
+    }
+
+    setTimeout(startSequence, 500);
+  </script>
+</body>
+</html>
